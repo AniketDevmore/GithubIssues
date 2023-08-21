@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Octokit } from "octokit";
-import Issues from "../issues/Issues";
-import Pagination from "../pagination/Pagination";
 
 const FetchApi = () => {
   const [issues, setIssues] = useState([]);
@@ -15,7 +13,7 @@ const FetchApi = () => {
   //  fetch data from github api
   const fechIssues = async () => {
     const octokit = new Octokit({
-      auth: `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`,
+      auth: ``,
     });
 
     let response = await octokit.request(
