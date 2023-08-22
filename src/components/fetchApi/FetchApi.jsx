@@ -4,7 +4,6 @@ import { Octokit } from "octokit";
 import imgIcon from "../../icons/gitiocon.png";
 import FetchApiTopLi from "../fetchApiTopLi/FetchApiTopLi";
 import SearchNav from "../searchNav/SearchNav";
-import { Link } from "react-router-dom";
 
 const FetchApi = () => {
   const [issues, setIssues] = useState([]);
