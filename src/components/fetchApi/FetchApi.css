@@ -1,0 +1,64 @@
+/* issues */
+.sortingLi {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px;
+  background-color: #f7f7f7;
+}
+.sortingLi div:nth-child(1) button {
+  border: none;
+  background-color: transparent;
+  margin-right: 5px;
+}
+.sortingLi div:nth-child(2) {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+.sortingLi div:nth-child(2) span i {
+  vertical-align: bottom;
+  opacity: 0.6;
+  font-size: 0.8rem;
+}
+.dynamicLi {
+  display: flex;
+}
+.issuesData a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.issuesData img {
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+}
+.issuesData p {
+  font-size: 0.9rem;
+}
+
+.issuesData a:hover {
+  color: blue;
+}
+
+/* page numbers */
+.pageNumber {
+  margin-top: 30px;
+}
+ul {
+  justify-content: center;
+}
+
+@media screen and (max-width: 750px) {
+  .sortingLi {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sortingLi div:nth-child(2) {
+    width: fit-content;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 8px;
+  }
+}
