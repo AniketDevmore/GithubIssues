@@ -5,16 +5,9 @@
   margin-bottom: 20px;
 }
 .searchNav > div:nth-child(1) {
-  width: 60%;
+  width: 75%;
 }
-.searchNav > div:nth-child(2) {
-  width: fit-content;
-  border: 1px solid rgb(223, 223, 223);
-  padding: 6px;
-}
-.searchNav > div:nth-child(2) span {
-  padding: 6px;
-}
+
 .searchNav > div:nth-child(2) span:last-child {
   border-left: 1px solid rgb(223, 223, 223);
 }

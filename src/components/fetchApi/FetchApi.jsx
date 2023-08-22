@@ -10,8 +10,8 @@ const FetchApi = () => {
 
   //   add pagination
   const [issuesPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalIssues] = useState(issues.length);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [filteredIssue, setFilteredIssue] = useState(issues);
 
   //  fetch data from github api
   const fechIssues = async () => {
@@ -29,6 +29,7 @@ const FetchApi = () => {
     // console.log(response.data);
     let openIssues = response.data.filter((ele) => ele.state == "open");
     setIssues(openIssues);
+    setFilteredIssue(openIssues);
   };
 
   useEffect(() => {
@@ -36,43 +37,63 @@ const FetchApi = () => {
   }, []);
 
   // pagination
-  const indexOfLastIssue = currentPage * issuesPerPage;
-  const indexOfFirstIssue = indexOfLastIssue - issuesPerPage;
-  const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
-
   const ArrayPaginationNumber = (totalIssues, issuesPerPage) => {
     return Array.from(Array(Math.ceil(totalIssues / issuesPerPage)).keys());
   };
 
+  const currentIssues = (filteredIssue, currentPage, issuesPerPage) => {
+    return filteredIssue.slice(
+      currentPage * issuesPerPage,
+      currentPage * issuesPerPage + issuesPerPage
+    );
+  };
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const changeHandle = (event) => {
+    let value = event.target.value;
+
+    if (value.length > 0) {
+      const regex = new RegExp(value, "gi");
+      const filteredData = issues.filter((ele) => {
+        return regex.test(ele.title);
+      });
+      // console.log(filteredData);
+      setFilteredIssue([...filteredData]);
+    } else {
+      setFilteredIssue([...issues]);
+    }
+  };
 
   return (
     <div>
-      <SearchNav />
+      <SearchNav changeHandle={changeHandle} />
       <div className="issuesData">
         <ul className="list-group">
-          <FetchApiTopLi issues={issues} />
-          {currentIssues.map((ele, i) => (
-            <li
-              key={i}
-              className="list-group-item list-group-item-action dynamicLiOuter"
-            >
-              <div className="dynamicLi">
-                <div>
-                  <img src={imgIcon} alt="icon" />
+          <FetchApiTopLi issues={issues} filteredIssue={filteredIssue} />
+          {currentIssues(filteredIssue, currentPage, issuesPerPage).map(
+            (ele, i) => (
+              <li
+                key={i}
+                className="list-group-item list-group-item-action dynamicLiOuter"
+              >
+                <div className="dynamicLi">
+                  <div>
+                    <img src={imgIcon} alt="icon" />
+                  </div>
+                  <div>
+                    <a href={ele.url}>{ele.title}</a>
+                    <p>
+                      #{ele.number} opened by {ele.user.login}
+                    </p>
+                  </div>
                 </div>
                 <div>
-                  <a href={ele.url}>{ele.title}</a>
-                  <p>
-                    #{ele.number} opened by {ele.user.login}
-                  </p>
+                  <i className="fa-regular fa-message"></i> {ele.comments}
                 </div>
-              </div>
-              <div>
-                <i className="fa-regular fa-message"></i> {ele.comments}
-              </div>
-            </li>
-          ))}
+              </li>
+            )
+          )}
         </ul>
       </div>
       <div className="pageNumber">
@@ -84,7 +105,7 @@ const FetchApi = () => {
                   <a
                     className="page-link"
                     href="#"
-                    onClick={() => paginate(ele + 1)}
+                    onClick={() => paginate(ele)}
                   >
                     {ele + 1}
                   </a>

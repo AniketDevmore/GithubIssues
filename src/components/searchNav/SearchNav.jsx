@@ -1,7 +1,7 @@
 import React from "react";
 import "./SearchNav.css";
 
-const SearchNav = () => {
+const SearchNav = ({ changeHandle }) => {
   return (
     <div className="searchNav">
       <div className="input-group">
@@ -11,14 +11,11 @@ const SearchNav = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Search issues"
+          placeholder="Search all issues"
           aria-label="Input group example"
           aria-describedby="btnGroupAddon2"
+          onChange={changeHandle}
         />
-      </div>
-      <div>
-        <span>Labels</span>
-        <span>Milestones</span>
       </div>
       <div>
         <button className="btn btn-success">New issue</button>
