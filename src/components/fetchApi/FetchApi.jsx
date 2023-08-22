@@ -4,6 +4,7 @@ import { Octokit } from "octokit";
 import imgIcon from "../../icons/gitiocon.png";
 import FetchApiTopLi from "../fetchApiTopLi/FetchApiTopLi";
 import SearchNav from "../searchNav/SearchNav";
+import { Link } from "react-router-dom";
 
 const FetchApi = () => {
   const [issues, setIssues] = useState([]);
@@ -55,16 +56,21 @@ const FetchApi = () => {
           {currentIssues.map((ele, i) => (
             <li
               key={i}
-              className="list-group-item list-group-item-action dynamicLi"
+              className="list-group-item list-group-item-action dynamicLiOuter"
             >
-              <div>
-                <img src={imgIcon} alt="icon" />
+              <div className="dynamicLi">
+                <div>
+                  <img src={imgIcon} alt="icon" />
+                </div>
+                <div>
+                  <a href={ele.url}>{ele.title}</a>
+                  <p>
+                    #{ele.number} opened by {ele.user.login}
+                  </p>
+                </div>
               </div>
               <div>
-                <a href={ele.url}>{ele.title}</a>
-                <p>
-                  #{ele.number} opened by {ele.user.login}
-                </p>
+                <i className="fa-regular fa-message"></i> {ele.comments}
               </div>
             </li>
           ))}
@@ -78,7 +84,7 @@ const FetchApi = () => {
                 <li key={i} className="page-item">
                   <a
                     className="page-link"
-                    href="javascript:void(0)"
+                    href="#"
                     onClick={() => paginate(ele + 1)}
                   >
                     {ele + 1}
