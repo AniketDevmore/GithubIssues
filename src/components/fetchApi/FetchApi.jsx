@@ -82,7 +82,7 @@ const FetchApi = () => {
                     <img src={imgIcon} alt="icon" />
                   </div>
                   <div>
-                    <a href={ele.url}>{ele.title}</a>
+                    <a href={ele.html_url}>{ele.title}</a>
                     <p>
                       #{ele.number} opened by {ele.user.login}
                     </p>
